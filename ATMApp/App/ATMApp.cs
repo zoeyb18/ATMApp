@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ATMApp.App
 {
-    public class ATMApp : IUserLogin
+    public class ATMApp : IUserLogin, IUserAccountActions
     {
         private List<UserAccount> userAccountList;
         private UserAccount selectedAccount;
@@ -82,7 +82,7 @@ namespace ATMApp.App
             switch (Validator.Convert<int>("an option:"))
             {
                 case (int)AppMenu.CheckBalance:
-                    Console.WriteLine("Checking account balance...");
+                    CheckBalance();
                     break;
                 case (int)AppMenu.PlaceDeposit:
                     Console.WriteLine("Placing deposit...");
@@ -107,5 +107,34 @@ namespace ATMApp.App
             }
         }
 
+        public void CheckBalance()
+        {
+           Utility.PrintMessage($"Your account balance is: {Utility.FormatAmount(selectedAccount.AccountBalance)}");
+        }
+
+        public void PlaceDeposit()
+        {
+            Console.WriteLine("\nOnly multiples of 5 and 10 usd allowed");
+            var transaction_amt = Validator.Convert<int>($"amount {AppScreen.cur}");
+
+            //simulate counting
+            Console.WriteLine("\nChecking and Counting bills.");
+            Utility.PrintDotAnimation();
+            Console.WriteLine("");
+        }
+
+        public void MakeWithdrawal()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool PreviewBillsCount(int amount)
+        {
+            int tensBillCount = amount / 10;
+            int fivesBillCount = (amount % 10) / 5;
+            Console.WriteLine("\nSummary");
+            Console.WriteLine(------);
+            Console.WriteLine($"{AppScreen.Cur}10 X {tensBillCount} = {10 * tensBillCount");
+        }
     }
 }

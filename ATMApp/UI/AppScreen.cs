@@ -1,6 +1,7 @@
 ﻿using ATMApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace ATMApp.UI
 {
     public static class AppScreen
     {
+        internal const string cur = "$";
         internal static void Welcome()
         {
             Console.Clear();
